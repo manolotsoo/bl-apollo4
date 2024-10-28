@@ -1,0 +1,10 @@
+# author.gql
+
+type Author {
+  name: String
+  books: [Book]
+}
+
+extend type Query {
+  authors: [Author]
+}
