@@ -8,7 +8,9 @@
     "build": "tsc && pnpm copy-gql-files",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "copy-gql-files": "mkdir -p dist/graphql/schemas && cp -R src/graphql/schemas/* dist/graphql/schemas/"
+    "generate:schemas": "ts-node src/graphql/mergeSchemas.ts",
+    "copy-gql-files": "mkdir -p dist/graphql/schemas && cp -R src/graphql/schemas/* dist/graphql/schemas/",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "keywords": [],
   "author": "",
@@ -19,10 +21,15 @@
     "@graphql-tools/merge": "^9.0.8",
     "@graphql-tools/schema": "^10.0.7",
     "graphql": "^16.9.0",
+    "punycode": "2.3.1",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
-    "@types/node": "^22.8.1",
+    "@graphql-codegen/cli": "5.0.3",
+    "@graphql-codegen/introspection": "4.0.3",
+    "@graphql-codegen/typescript": "4.1.1",
+    "@graphql-codegen/typescript-resolvers": "4.4.0",
+    "@types/node": "^22.8.2",
     "typescript": "^5.6.3"
   }
 }

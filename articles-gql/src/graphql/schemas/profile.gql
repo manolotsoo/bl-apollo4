@@ -8,5 +8,5 @@ type Profile {
 }
 
 type Query {
-    profils: [Profil]
+    profils: [Profile]
 }

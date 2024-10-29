@@ -1,8 +1,9 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import schema from "./graphql";
+import resolver from "./graphql/resolvers";
 
-interface MyContext {
+export interface MyContext {
   token?: String;
 }
 
@@ -10,6 +11,7 @@ interface MyContext {
 // definition and your set of resolvers.
 const server = new ApolloServer<MyContext>({
   schema,
+  ...resolver,
 });
 
 // Passing an ApolloServer instance to the `startStandaloneServer` function:
