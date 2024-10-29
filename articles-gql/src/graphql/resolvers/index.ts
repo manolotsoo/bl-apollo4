@@ -1,3 +1,1 @@
-import { bookResolvers } from "./book.resolver";
-
-export default [bookResolvers];
+export { bookQuery, bookResolvers } from "./books";
