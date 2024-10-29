@@ -1,32 +1,8 @@
-type Author {
-  name: String
-  books: [Book]
-}
-
-type Query {
-  authors: [Author]
-  books: [Book]
-  profils: [Profile]
-  users: [User]
-}
-
 type Book {
   title: String
   author: String
 }
 
-type Profile {
-  id: String
-  firstName: String
-  lastName: String
-  imageProfile: String
-  birthDate: String
-  user: User
-}
-
-type User {
-  id: String
-  email: String
-  password: String
-  profile: Profile
+type Query {
+  books: [Book]
 }

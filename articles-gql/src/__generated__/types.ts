@@ -16,42 +16,15 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
-export type Author = {
-  __typename?: 'Author';
-  books?: Maybe<Array<Maybe<Book>>>;
-  name?: Maybe<Scalars['String']['output']>;
-};
-
 export type Book = {
   __typename?: 'Book';
   author?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
-export type Profile = {
-  __typename?: 'Profile';
-  birthDate?: Maybe<Scalars['String']['output']>;
-  firstName?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  imageProfile?: Maybe<Scalars['String']['output']>;
-  lastName?: Maybe<Scalars['String']['output']>;
-  user?: Maybe<User>;
-};
-
 export type Query = {
   __typename?: 'Query';
-  authors?: Maybe<Array<Maybe<Author>>>;
   books?: Maybe<Array<Maybe<Book>>>;
-  profils?: Maybe<Array<Maybe<Profile>>>;
-  users?: Maybe<Array<Maybe<User>>>;
-};
-
-export type User = {
-  __typename?: 'User';
-  email?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  password?: Maybe<Scalars['String']['output']>;
-  profile?: Maybe<Profile>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -126,30 +99,18 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  Author: ResolverTypeWrapper<Author>;
   Book: ResolverTypeWrapper<Book>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
-  Profile: ResolverTypeWrapper<Profile>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  User: ResolverTypeWrapper<User>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  Author: Author;
   Book: Book;
   Boolean: Scalars['Boolean']['output'];
-  Profile: Profile;
   Query: {};
   String: Scalars['String']['output'];
-  User: User;
-}>;
-
-export type AuthorResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Author'] = ResolversParentTypes['Author']> = ResolversObject<{
-  books?: Resolver<Maybe<Array<Maybe<ResolversTypes['Book']>>>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type BookResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Book'] = ResolversParentTypes['Book']> = ResolversObject<{
@@ -158,36 +119,12 @@ export type BookResolvers<ContextType = MyContext, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ProfileResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Profile'] = ResolversParentTypes['Profile']> = ResolversObject<{
-  birthDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  firstName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  imageProfile?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  lastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  authors?: Resolver<Maybe<Array<Maybe<ResolversTypes['Author']>>>, ParentType, ContextType>;
   books?: Resolver<Maybe<Array<Maybe<ResolversTypes['Book']>>>, ParentType, ContextType>;
-  profils?: Resolver<Maybe<Array<Maybe<ResolversTypes['Profile']>>>, ParentType, ContextType>;
-  users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
-}>;
-
-export type UserResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
-  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  profile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = MyContext> = ResolversObject<{
-  Author?: AuthorResolvers<ContextType>;
   Book?: BookResolvers<ContextType>;
-  Profile?: ProfileResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  User?: UserResolvers<ContextType>;
 }>;
 
