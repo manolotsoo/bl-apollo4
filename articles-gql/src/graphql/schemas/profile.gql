@@ -1,0 +1,12 @@
+type Profile {
+    id: String
+    firstName: String
+    lastName: String
+    imageProfile: String
+    birthDate: String
+    user: User
+}
+
+type Query {
+    profils: [Profil]
+}
