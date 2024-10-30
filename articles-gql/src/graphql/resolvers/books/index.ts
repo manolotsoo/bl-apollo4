@@ -1,4 +1,2 @@
-import { bookQuery } from "./book.query";
-import { bookResolvers } from "./book.resolver";
-
-export { bookQuery, bookResolvers };
+export { bookQuery } from "./book.query";
+export { bookResolvers } from "./book.resolver";

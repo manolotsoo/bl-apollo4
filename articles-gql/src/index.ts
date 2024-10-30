@@ -1,32 +1,15 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import schema from "./graphql";
-import { bookQuery, bookResolvers } from "./graphql/resolvers";
+import { resolvers } from "./graphql/resolvers";
 
 export interface MyContext {
   token?: String;
 }
 
-// const books = [
-//   {
-//     title: "The Awakening",
-//     author: "Kate Chopin",
-//   },
-//   {
-//     title: "City of Glass",
-//     author: "Paul Auster",
-//   },
-// ];
-
-// const resolvers = {
-//   Query: {
-//     books: () => books,
-//   },
-// };
-
 const server = new ApolloServer<MyContext>({
   typeDefs: schema,
-  resolvers: { ...bookQuery, ...bookResolvers },
+  resolvers,
 });
 
 // The ApolloServer constructor requires two parameters: your schema

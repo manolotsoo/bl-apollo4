@@ -5,4 +5,16 @@ type Book {
 
 type Query {
   books: [Book]
+  users: [User]
+  userById(args: ArgsUserById): User
+}
+
+type User {
+  id: String
+  email: String
+  password: String
+}
+
+input ArgsUserById {
+  id: String!
 }

@@ -1,0 +1,16 @@
+# user.gql
+
+type User {
+  id: String
+  email: String
+  password: String
+}
+
+input ArgsUserById {
+    id: String!
+}
+
+type Query {
+  users: [User]
+  userById(args: ArgsUserById): User
+}
