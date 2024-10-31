@@ -1,0 +1,41 @@
+{
+  "name": "articles-gql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && pnpm copy-gql-files",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "generate:schemas": "ts-node src/graphql/mergeSchemas.ts",
+    "copy-gql-files": "mkdir -p dist/graphql/schemas && cp -R src/graphql/schemas/* dist/graphql/schemas/",
+    "generate:types": "graphql-codegen --config codegen.yml",
+    "db:push": "prisma db push --schema ./prisma/schema",
+    "db:migrate:apply": "prisma migrate resolve --applied",
+    "db:migrate:dev": "prisma migrate dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.11.0",
+    "@graphql-tools/load": "^8.0.3",
+    "@graphql-tools/load-files": "^7.0.0",
+    "@graphql-tools/merge": "^9.0.8",
+    "@graphql-tools/schema": "^10.0.7",
+    "@prisma/client": "5.21.1",
+    "graphql": "^16.9.0",
+    "punycode": "2.3.1",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "5.0.3",
+    "@graphql-codegen/introspection": "4.0.3",
+    "@graphql-codegen/typescript": "4.1.1",
+    "@graphql-codegen/typescript-resolvers": "4.4.0",
+    "@types/node": "^22.8.2",
+    "prisma": "^5.21.1",
+    "typescript": "^5.6.3"
+  }
+}

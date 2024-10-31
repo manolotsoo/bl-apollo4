@@ -1,3 +1,5 @@
+# book.gql
+
 type Product {
   id: Int
   label: String
@@ -11,7 +13,7 @@ type Query {
   products: [Product]
 }
 
-input CreateProductArgs {
+input CreateProductArgs{
   label: String
   description: String
   price: Int
@@ -19,7 +21,7 @@ input CreateProductArgs {
   user: String
 }
 
-input UpdateProductArgs {
+input UpdateProductArgs{
   id: Int!
   label: String
   description: String

@@ -1,0 +1,28 @@
+type Book {
+  title: String
+  author: String
+}
+
+type Query {
+  books: [Book]
+  profiles: [Profile]
+  users: [User]
+  userById(args: ArgsUserById): User
+}
+
+type Profile {
+  id: Int
+  name: String
+  user: User!
+}
+
+input ArgsUserById {
+  id: Int!
+}
+
+type User {
+  id: Int
+  email: String
+  password: String
+  profile: Profile
+}
