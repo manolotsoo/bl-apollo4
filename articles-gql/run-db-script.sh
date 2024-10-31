@@ -17,3 +17,10 @@ docker run -d \
     -e PMA_HOST=mysql \
     -p 8888:80 \
     phpmyadmin
+
+npx prisma migrate dev --name 20241031051152_profile
+
+npx prisma db push --schema "./prisma/schema"
+
+# doesn't work
+npx prisma migrate resolve --rolled-back "20241031055601_delete_profile"
