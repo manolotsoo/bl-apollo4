@@ -10,7 +10,7 @@
     "dev": "ts-node src/index.ts",
     "generate:schemas": "ts-node src/graphql/mergeSchemas.ts",
     "copy-gql-files": "mkdir -p dist/graphql/schemas && cp -R src/graphql/schemas/* dist/graphql/schemas/",
-    "codegen": "graphql-codegen --config codegen.yml",
+    "generate:types": "graphql-codegen --config codegen.yml",
     "db:push": "prisma db push --schema ./prisma/schema",
     "db:migrate:apply": "prisma migrate resolve --applied",
     "db:migrate:dev": "prisma migrate dev"

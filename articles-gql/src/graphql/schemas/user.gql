@@ -1,13 +1,14 @@
 # user.gql
 
 type User {
-  id: String
+  id: Int
   email: String
   password: String
+  profile: Profile
 }
 
 input ArgsUserById {
-    id: String!
+    id: Int!
 }
 
 type Query {

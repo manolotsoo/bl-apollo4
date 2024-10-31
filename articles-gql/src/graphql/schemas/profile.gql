@@ -1,0 +1,15 @@
+# user.gql
+
+type Profile {
+  id: Int
+  name: String
+  user: User!
+}
+
+input ArgsUserById {
+  id: Int!
+}
+
+type Query {
+  profiles: [Profile]
+}

@@ -1,11 +1,23 @@
 import { userQuery, userResolvers } from "./users";
 import { bookQuery, bookResolvers } from "./books";
+import { Resolvers } from "../../__generated__/types";
+import { profileQuery, profileResolvers } from "./profiles";
 
-export const resolvers = {
+export const resolvers: Resolvers = {
   Query: {
-    ...userQuery.Query,
-    ...bookQuery.Query,
+    ...userQuery,
+    ...bookQuery,
+    ...profileQuery,
   },
-  ...userResolvers,
-  ...bookResolvers,
+  // userResolver
+  User: {
+    ...userResolvers,
+  },
+  Book: {
+    // bookResolver
+    ...bookResolvers,
+  },
+  Profile: {
+    ...profileResolvers,
+  },
 };
