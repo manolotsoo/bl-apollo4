@@ -11,4 +11,10 @@ export const userResolvers: UserResolvers = {
   password: (parent: any) => {
     return parent?.password;
   },
+  name: (parent: any) => {
+    return parent?.name;
+  },
+  profile: (parent: any) => {
+    return parent?.profile;
+  },
 };

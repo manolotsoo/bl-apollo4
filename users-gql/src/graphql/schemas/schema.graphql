@@ -7,7 +7,7 @@ type Query {
   books: [Book]
   profiles: [Profile]
   users: [User]
-  userById(args: ArgsUserById): User
+  userById(id: Int!): User
 }
 
 type Profile {
@@ -21,8 +21,25 @@ input ArgsUserById {
 }
 
 type User {
-  id: Int
-  email: String
-  password: String
+  id: Int!
+  email: String!
+  name: String
+  password: String!
   profile: Profile
+}
+
+input UserInput {
+  email: String!
+  name: String
+  password: String!
+  profile: ProfileInput
+}
+
+type Mutation {
+  createUser(input: UserInput!): User
+  updateUser(id: Int!, input: UserInput!): User
+}
+
+input ProfileInput {
+  name: String
 }

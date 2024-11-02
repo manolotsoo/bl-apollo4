@@ -1,4 +1,8 @@
-import { QueryResolvers, User } from "../../../__generated__/types";
+import {
+  QueryResolvers,
+  QueryUserByIdArgs,
+  User,
+} from "../../../__generated__/types";
 
 const users: User[] = [
   {
@@ -16,4 +20,9 @@ const users: User[] = [
 // This resolver retrieves books from the "books" array above.
 export const userQuery: QueryResolvers = {
   users: (parent: any, args: any, context: any) => users,
+  userById: (_: any, queryArgs: QueryUserByIdArgs, context: any) => {
+    const { id } = queryArgs;
+    const userFound = users?.find((user) => user?.id === id);
+    return userFound as User;
+  },
 };

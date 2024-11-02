@@ -26,6 +26,9 @@ const server = new ApolloServer<MyContext>({
 (async () => {
   const { url } = await startStandaloneServer(server, {
     listen: { port: 4001 },
+    context: async ({ req, res }) => ({
+      token: "this is the token on the server context",
+    }),
   });
   console.log(`🚀  Server ready at: ${url}`);
 })();

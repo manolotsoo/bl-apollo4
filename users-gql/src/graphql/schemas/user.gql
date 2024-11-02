@@ -1,17 +1,30 @@
-# user.gql
-
 type User {
-  id: Int
-  email: String
-  password: String
+  id: Int!
+  email: String!
+  name: String
+  password: String! # Consider not exposing this field in production for security.
   profile: Profile
 }
 
-input ArgsUserById {
-    id: Int!
+input UserInput {
+  email: String!
+  name: String
+  password: String! # Avoid plain-text storage or transfer of passwords; consider hashing.
+  profile: ProfileInput
 }
 
 type Query {
   users: [User]
-  userById(args: ArgsUserById): User
+  userById(id: Int!): User
+}
+
+type Mutation {
+  createUser(input: UserInput!): User
+  updateUser(id: Int!, input: UserInput!): User
+}
+
+# Additional input type for nested profile data (if applicable)
+input ProfileInput {
+  # Add fields relevant to the Profile
+  name: String
 }
