@@ -1,6 +1,7 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import {
   MutationCreateUserArgs,
+  MutationDeleteUserArgs,
   MutationResolvers,
   MutationUpdateUserArgs,
   QueryResolvers,
@@ -45,6 +46,16 @@ export const userMutation: MutationResolvers = {
         id,
       },
     });
+    return user;
+  },
+  deleteUser: async (_: any, args: MutationDeleteUserArgs, context: any) => {
+    const { id } = args;
+    const dataToDelete: Prisma.UserDeleteArgs = {
+      where: {
+        id,
+      },
+    };
+    const user = await prisma.user.delete(dataToDelete);
     return user;
   },
 };

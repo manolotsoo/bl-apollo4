@@ -30,12 +30,18 @@ export type Book = {
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<User>;
+  deleteUser?: Maybe<User>;
   updateUser?: Maybe<User>;
 };
 
 
 export type MutationCreateUserArgs = {
   input: UserInput;
+};
+
+
+export type MutationDeleteUserArgs = {
+  id: Scalars['Int']['input'];
 };
 
 
@@ -192,6 +198,7 @@ export type BookResolvers<ContextType = MyContext, ParentType extends ResolversP
 
 export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
+  deleteUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>;
   updateUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id' | 'input'>>;
 }>;
 

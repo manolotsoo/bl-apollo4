@@ -21,6 +21,7 @@ type Query {
 type Mutation {
   createUser(input: UserInput!): User
   updateUser(id: Int!, input: UserInput!): User
+  deleteUser(id: Int!): User
 }
 
 # Additional input type for nested profile data (if applicable)
