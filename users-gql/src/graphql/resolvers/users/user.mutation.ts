@@ -1,8 +1,8 @@
-import { PrismaClient } from "@prisma/client";
-
+import { Prisma, PrismaClient } from "@prisma/client";
 import {
   MutationCreateUserArgs,
   MutationResolvers,
+  MutationUpdateUserArgs,
   QueryResolvers,
   QueryUserByIdArgs,
   User,
@@ -31,8 +31,20 @@ export const userMutation: MutationResolvers = {
     const user = await prisma.user.create({
       data: { ...input, profile: undefined },
     });
-    console.log("user ", user);
-
+    return user;
+  },
+  updateUser: async (_: any, args: MutationUpdateUserArgs, context: any) => {
+    const { id, input } = args;
+    const dataUpdated: Prisma.UserUpdateInput = {
+      ...input,
+      profile: undefined,
+    };
+    const user = await prisma.user.update({
+      data: dataUpdated,
+      where: {
+        id,
+      },
+    });
     return user;
   },
 };
