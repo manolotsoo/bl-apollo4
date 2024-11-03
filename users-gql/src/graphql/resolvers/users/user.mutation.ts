@@ -4,10 +4,7 @@ import {
   MutationDeleteUserArgs,
   MutationResolvers,
   MutationUpdateUserArgs,
-  QueryResolvers,
-  QueryUserByIdArgs,
   User,
-  UserInput,
 } from "../../../__generated__/types";
 
 const users: User[] = [
