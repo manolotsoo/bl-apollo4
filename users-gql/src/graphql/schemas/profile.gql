@@ -1,15 +1,17 @@
 # user.gql
 
 type Profile {
-  id: Int
+  id: String
   name: String
   user: User!
 }
 
-input ArgsUserById {
-  id: Int!
-}
-
 type Query {
   profiles: [Profile]
+}
+
+type Mutation {
+  createProfile(name: String!, user: User!): Profile
+  updateProfile(id: String!, name: String!, user: User!): Profile
+  deleteProfile(id: String!): Profile
 }

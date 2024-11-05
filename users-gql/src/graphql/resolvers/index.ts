@@ -1,6 +1,7 @@
 import { userQuery, userResolvers, userMutation } from "./users";
 import { Resolvers } from "../../__generated__/types";
 import { profileQuery, profileResolvers } from "./profiles";
+import { profileMutation } from "./profiles/profile.mutation";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -9,6 +10,7 @@ export const resolvers: Resolvers = {
   },
   Mutation: {
     ...userMutation,
+    ...profileMutation,
   },
   // userResolver
   User: {

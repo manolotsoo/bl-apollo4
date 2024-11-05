@@ -17,22 +17,32 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
-export type ArgsUserById = {
-  id: Scalars['Int']['input'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
+  createProfile?: Maybe<Profile>;
   createUser?: Maybe<User>;
+  deleteProfile?: Maybe<Profile>;
   deleteUser?: Maybe<User>;
   signIn?: Maybe<User>;
   signUp?: Maybe<User>;
+  updateProfile?: Maybe<Profile>;
   updateUser?: Maybe<User>;
+};
+
+
+export type MutationCreateProfileArgs = {
+  name: Scalars['String']['input'];
+  user: User;
 };
 
 
 export type MutationCreateUserArgs = {
   input: UserInput;
+};
+
+
+export type MutationDeleteProfileArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -51,6 +61,13 @@ export type MutationSignUpArgs = {
 };
 
 
+export type MutationUpdateProfileArgs = {
+  id: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  user: User;
+};
+
+
 export type MutationUpdateUserArgs = {
   id: Scalars['String']['input'];
   input: UserInput;
@@ -58,7 +75,7 @@ export type MutationUpdateUserArgs = {
 
 export type Profile = {
   __typename?: 'Profile';
-  id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   user: User;
 };
@@ -178,9 +195,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  ArgsUserById: ArgsUserById;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
-  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Profile: ResolverTypeWrapper<Profile>;
   ProfileInput: ProfileInput;
@@ -193,9 +208,7 @@ export type ResolversTypes = ResolversObject<{
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  ArgsUserById: ArgsUserById;
   Boolean: Scalars['Boolean']['output'];
-  Int: Scalars['Int']['output'];
   Mutation: {};
   Profile: Profile;
   ProfileInput: ProfileInput;
@@ -207,15 +220,18 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  createProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<MutationCreateProfileArgs, 'name' | 'user'>>;
   createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
+  deleteProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<MutationDeleteProfileArgs, 'id'>>;
   deleteUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>;
   signIn?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationSignInArgs, 'input'>>;
   signUp?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationSignUpArgs, 'input'>>;
+  updateProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<MutationUpdateProfileArgs, 'id' | 'name' | 'user'>>;
   updateUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id' | 'input'>>;
 }>;
 
 export type ProfileResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Profile'] = ResolversParentTypes['Profile']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

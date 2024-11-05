@@ -1,11 +1,7 @@
 type Profile {
-  id: Int
+  id: String
   name: String
   user: User!
-}
-
-input ArgsUserById {
-  id: Int!
 }
 
 type Query {
@@ -13,6 +9,17 @@ type Query {
   users: [User]
   userById(id: String!): User
   userByEmail(email: String!): User
+}
+
+type Mutation {
+  createProfile(name: String!, user: User!): Profile
+  updateProfile(id: String!, name: String!, user: User!): Profile
+  deleteProfile(id: String!): Profile
+  createUser(input: UserInput!): User
+  updateUser(id: String!, input: UserInput!): User
+  deleteUser(id: String!): User
+  signUp(input: UserInput!): User
+  signIn(input: UserInput!): User
 }
 
 type User {
@@ -33,14 +40,6 @@ input UserInput {
 input SignInInput {
   email: String!
   password: String!
-}
-
-type Mutation {
-  createUser(input: UserInput!): User
-  updateUser(id: String!, input: UserInput!): User
-  deleteUser(id: String!): User
-  signUp(input: UserInput!): User
-  signIn(input: UserInput!): User
 }
 
 input ProfileInput {
