@@ -1,25 +1,27 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import {
   MutationCreateUserArgs,
   MutationDeleteUserArgs,
   MutationResolvers,
+  MutationSignUpArgs,
   MutationUpdateUserArgs,
   User,
 } from "../../../__generated__/types";
+import { prisma } from "../../../db/prisma";
+import { signUp } from "../../repository/users";
 
 const users: User[] = [
   {
-    id: 1,
+    id: "1",
     email: "manolotsoadaniel@gmail.com",
     password: "1234567890",
   },
   {
-    id: 2,
+    id: "2",
     email: "tilt@gmail.com",
     password: "0987654321",
   },
 ];
-const prisma = new PrismaClient();
 
 // Resolvers define how to fetch the types defined in your schema.
 // This resolver retrieves books from the "books" array above.
@@ -29,7 +31,7 @@ export const userMutation: MutationResolvers = {
     const user = await prisma.user.create({
       data: { ...input, profile: undefined },
     });
-    return user;
+    return user as unknown as User;
   },
   updateUser: async (_: any, args: MutationUpdateUserArgs, context: any) => {
     const { id, input } = args;
@@ -43,7 +45,7 @@ export const userMutation: MutationResolvers = {
         id,
       },
     });
-    return user;
+    return user as unknown as User;
   },
   deleteUser: async (_: any, args: MutationDeleteUserArgs, context: any) => {
     const { id } = args;
@@ -53,6 +55,9 @@ export const userMutation: MutationResolvers = {
       },
     };
     const user = await prisma.user.delete(dataToDelete);
-    return user;
+    return user as unknown as User;
+  },
+  signUp: (_: any, args: MutationSignUpArgs, context: any) => {
+    return signUp(args);
   },
 };

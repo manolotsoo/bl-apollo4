@@ -11,7 +11,7 @@ input ArgsUserById {
 type Query {
   profiles: [Profile]
   users: [User]
-  userById(id: Int!): User
+  userById(id: String!): User
   userByEmail(email: String!): User
 }
 
@@ -37,8 +37,8 @@ input SignInInput {
 
 type Mutation {
   createUser(input: UserInput!): User
-  updateUser(id: Int!, input: UserInput!): User
-  deleteUser(id: Int!): User
+  updateUser(id: String!, input: UserInput!): User
+  deleteUser(id: String!): User
   signUp(input: UserInput!): User
   signIn(input: UserInput!): User
 }
