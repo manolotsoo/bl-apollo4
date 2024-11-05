@@ -1,15 +1,3 @@
-type Book {
-  title: String
-  author: String
-}
-
-type Query {
-  books: [Book]
-  profiles: [Profile]
-  users: [User]
-  userById(id: Int!): User
-}
-
 type Profile {
   id: Int
   name: String
@@ -20,8 +8,15 @@ input ArgsUserById {
   id: Int!
 }
 
+type Query {
+  profiles: [Profile]
+  users: [User]
+  userById(id: Int!): User
+  userByEmail(email: String!): User
+}
+
 type User {
-  id: Int!
+  id: String
   email: String!
   name: String
   password: String!
@@ -35,10 +30,17 @@ input UserInput {
   profile: ProfileInput
 }
 
+input SignInInput {
+  email: String!
+  password: String!
+}
+
 type Mutation {
   createUser(input: UserInput!): User
   updateUser(id: Int!, input: UserInput!): User
   deleteUser(id: Int!): User
+  signUp(input: UserInput!): User
+  signIn(input: UserInput!): User
 }
 
 input ProfileInput {

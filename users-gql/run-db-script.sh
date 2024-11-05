@@ -24,3 +24,5 @@ npx prisma db push --schema "./prisma/schema"
 
 # doesn't work
 npx prisma migrate resolve --rolled-back "20241031055601_delete_profile"
+
+docker run --name mongodb -p 27417:27017 -e MONGO_INITDB_ROOT_USERNAME=tilt -e MONGO_INITDB_ROOT_PASSWORD=tilt -v $HOME/mongodb:/data/db -d mongo:latest

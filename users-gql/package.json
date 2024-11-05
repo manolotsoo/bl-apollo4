@@ -8,12 +8,13 @@
     "build": "tsc && pnpm copy-gql-files",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --watch src --transpile-only src/index.ts",
-    "generate:schemas": "ts-node src/graphql/mergeSchemas.ts",
     "copy-gql-files": "mkdir -p dist/graphql/schemas && cp -R src/graphql/schemas/* dist/graphql/schemas/",
     "generate:types": "graphql-codegen --config codegen.yml",
     "db:push": "prisma db push --schema ./prisma/schema",
     "db:migrate:apply": "prisma migrate resolve --applied",
-    "db:migrate:dev": "prisma migrate dev"
+    "db:migrate:dev": "prisma migrate dev",
+    "generate:schemas:gql": "ts-node src/graphql/mergeSchemas.ts",
+    "generate:schemas:prisma": "prisma generate"
   },
   "keywords": [],
   "author": "",
