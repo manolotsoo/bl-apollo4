@@ -19,7 +19,7 @@ export type Scalars = {
 
 export type CreateProfileInput = {
   name: Scalars['String']['input'];
-  user: UserInput;
+  user: UserCreateProfileInput;
 };
 
 export type Mutation = {
@@ -88,10 +88,16 @@ export type ProfileInput = {
 
 export type Query = {
   __typename?: 'Query';
+  profileById?: Maybe<Profile>;
   profiles?: Maybe<Array<Maybe<Profile>>>;
   userByEmail?: Maybe<User>;
   userById?: Maybe<User>;
   users?: Maybe<Array<Maybe<User>>>;
+};
+
+
+export type QueryProfileByIdArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -112,7 +118,7 @@ export type SignInInput = {
 export type UpdateProfileInput = {
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
-  user: UserInput;
+  user: UserCreateProfileInput;
 };
 
 export type User = {
@@ -124,9 +130,12 @@ export type User = {
   profile?: Maybe<Profile>;
 };
 
+export type UserCreateProfileInput = {
+  id: Scalars['String']['input'];
+};
+
 export type UserInput = {
   email: Scalars['String']['input'];
-  id?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   password: Scalars['String']['input'];
   profile?: InputMaybe<ProfileInput>;
@@ -214,6 +223,7 @@ export type ResolversTypes = ResolversObject<{
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   UpdateProfileInput: UpdateProfileInput;
   User: ResolverTypeWrapper<User>;
+  UserCreateProfileInput: UserCreateProfileInput;
   UserInput: UserInput;
 }>;
 
@@ -229,6 +239,7 @@ export type ResolversParentTypes = ResolversObject<{
   String: Scalars['String']['output'];
   UpdateProfileInput: UpdateProfileInput;
   User: User;
+  UserCreateProfileInput: UserCreateProfileInput;
   UserInput: UserInput;
 }>;
 
@@ -251,6 +262,7 @@ export type ProfileResolvers<ContextType = MyContext, ParentType extends Resolve
 }>;
 
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  profileById?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<QueryProfileByIdArgs, 'id'>>;
   profiles?: Resolver<Maybe<Array<Maybe<ResolversTypes['Profile']>>>, ParentType, ContextType>;
   userByEmail?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByEmailArgs, 'email'>>;
   userById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByIdArgs, 'id'>>;

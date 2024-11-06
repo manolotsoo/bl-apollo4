@@ -6,28 +6,25 @@ type Profile {
 
 type Query {
   profiles: [Profile]
+  profileById(id: String!): Profile
   users: [User]
   userById(id: String!): User
   userByEmail(email: String!): User
 }
 
-input UserInput {
-  id: String
-  email: String!
-  name: String
-  password: String!
-  profile: ProfileInput
+input UserCreateProfileInput {
+  id: String!
 }
 
 input UpdateProfileInput {
   id: String!
   name: String!
-  user: UserInput!
+  user: UserCreateProfileInput!
 }
 
 input CreateProfileInput {
   name: String!
-  user: UserInput!
+  user: UserCreateProfileInput!
 }
 
 type Mutation {
@@ -47,6 +44,13 @@ type User {
   name: String
   password: String!
   profile: Profile
+}
+
+input UserInput {
+  email: String!
+  name: String
+  password: String!
+  profile: ProfileInput
 }
 
 input SignInInput {

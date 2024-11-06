@@ -13,6 +13,13 @@ input UserInput {
   profile: ProfileInput
 }
 
+input UserInput {
+  email: String!
+  name: String
+  password: String! # Avoid plain-text storage or transfer of passwords; consider hashing.
+  profile: ProfileInput
+}
+
 input SignInInput {
   email: String!
   password: String!

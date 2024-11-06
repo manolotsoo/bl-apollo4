@@ -20,7 +20,6 @@ export const userMutation: MutationResolvers = {
     const user = await prisma.user.create({
       data: {
         ...input,
-        id: input.id as string,
         profile: undefined,
       },
     });

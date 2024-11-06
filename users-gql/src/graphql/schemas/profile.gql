@@ -8,23 +8,22 @@ type Profile {
 
 type Query {
   profiles: [Profile]
+  profileById(id: String!): Profile
 }
 
-input UserInput {
-  id: String
-  email: String!
-  name: String
+input UserCreateProfileInput {
+  id: String!
 }
 
 input UpdateProfileInput {
   id: String!, 
   name: String!, 
-  user: UserInput!
+  user: UserCreateProfileInput!
 }
 
 input CreateProfileInput {
   name: String!, 
-  user: UserInput!
+  user: UserCreateProfileInput!
 }
 
 type Mutation {

@@ -8,7 +8,6 @@ export const signUp = async (args: MutationSignUpArgs) => {
     data: {
       ...input,
       profile: undefined,
-      id: input.id as string,
     },
   });
   return user as User;
