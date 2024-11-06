@@ -91,6 +91,7 @@ export type Query = {
   __typename?: 'Query';
   profileById?: Maybe<Profile>;
   profiles?: Maybe<Array<Maybe<Profile>>>;
+  test?: Maybe<Scalars['String']['output']>;
   userByEmail?: Maybe<User>;
   userById?: Maybe<User>;
   users?: Maybe<Array<Maybe<User>>>;
@@ -266,6 +267,7 @@ export type ProfileResolvers<ContextType = MyContext, ParentType extends Resolve
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   profileById?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<QueryProfileByIdArgs, 'id'>>;
   profiles?: Resolver<Maybe<Array<Maybe<ResolversTypes['Profile']>>>, ParentType, ContextType>;
+  test?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   userByEmail?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByEmailArgs, 'email'>>;
   userById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByIdArgs, 'id'>>;
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;

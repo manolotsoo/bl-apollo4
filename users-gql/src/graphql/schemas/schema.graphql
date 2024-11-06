@@ -8,6 +8,7 @@ type Profile {
 type Query {
   profiles: [Profile]
   profileById(id: String!): Profile
+  test: String
   users: [User]
   userById(id: String!): User
   userByEmail(email: String!): User
