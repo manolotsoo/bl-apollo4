@@ -1,9 +1,9 @@
-import { User, UserResolvers } from "../../../__generated__/types";
+import { Profile, User, UserResolvers } from "../../../__generated__/types";
+import { profileByUserId } from "../../repository/profiles";
 // Resolvers define how to fetch the types defined in your schema.
 // This resolver retrieves books from the "books" array above.
 export const userResolvers: UserResolvers = {
   id: (parent: User) => {
-    console.log("parent ", parent);
     return parent?.id as string;
   },
   email: (parent: any) => {
@@ -15,7 +15,7 @@ export const userResolvers: UserResolvers = {
   name: (parent: any) => {
     return parent?.name;
   },
-  profile: (parent: any) => {
-    return parent?.profile;
+  profile: (parent: User) => {
+    return profileByUserId(parent.id as string) as unknown as Profile;
   },
 };

@@ -80,6 +80,7 @@ export type Profile = {
   id?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   user: User;
+  userId: Scalars['String']['output'];
 };
 
 export type ProfileInput = {
@@ -258,6 +259,7 @@ export type ProfileResolvers<ContextType = MyContext, ParentType extends Resolve
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  userId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

@@ -4,6 +4,7 @@ type Profile {
   id: String
   name: String
   user: User!
+  userId: String!
 }
 
 type Query {
