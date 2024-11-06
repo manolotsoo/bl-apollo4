@@ -13,19 +13,10 @@ import {
 // Resolvers define how to fetch the types defined in your schema.
 // This resolver retrieves books from the "books" array above.
 export const profileMutation: MutationResolvers = {
-  createProfile: async (
-    _: any,
-    args: MutationCreateProfileArgs,
-    context: any
-  ) => createProfile(args),
-  updateProfile: async (
-    _: any,
-    args: MutationUpdateProfileArgs,
-    context: any
-  ) => updateProfile(args),
-  deleteProfile: async (
-    _: any,
-    args: MutationDeleteProfileArgs,
-    context: any
-  ) => deleteProfile(args),
+  createProfile: async (_: any, args: MutationCreateProfileArgs, __: any) =>
+    createProfile(args),
+  updateProfile: async (_: any, args: MutationUpdateProfileArgs, __: any) =>
+    updateProfile(args),
+  deleteProfile: async (_: any, args: MutationDeleteProfileArgs, __: any) =>
+    deleteProfile(args),
 };

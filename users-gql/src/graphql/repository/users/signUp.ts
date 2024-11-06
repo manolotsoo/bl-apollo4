@@ -5,7 +5,11 @@ import { prisma } from "../../../db/prisma";
 export const signUp = async (args: MutationSignUpArgs) => {
   const { input } = args;
   const user = await prisma.user.create({
-    data: { ...input, profile: undefined },
+    data: {
+      ...input,
+      profile: undefined,
+      id: input.id as string,
+    },
   });
   return user as User;
 };

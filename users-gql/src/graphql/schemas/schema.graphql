@@ -11,9 +11,28 @@ type Query {
   userByEmail(email: String!): User
 }
 
+input UserInput {
+  id: String
+  email: String!
+  name: String
+  password: String!
+  profile: ProfileInput
+}
+
+input UpdateProfileInput {
+  id: String!
+  name: String!
+  user: UserInput!
+}
+
+input CreateProfileInput {
+  name: String!
+  user: UserInput!
+}
+
 type Mutation {
-  createProfile(name: String!, user: User!): Profile
-  updateProfile(id: String!, name: String!, user: User!): Profile
+  createProfile(input: CreateProfileInput): Profile
+  updateProfile(input: UpdateProfileInput): Profile
   deleteProfile(id: String!): Profile
   createUser(input: UserInput!): User
   updateUser(id: String!, input: UserInput!): User
@@ -28,13 +47,6 @@ type User {
   name: String
   password: String!
   profile: Profile
-}
-
-input UserInput {
-  email: String!
-  name: String
-  password: String!
-  profile: ProfileInput
 }
 
 input SignInInput {

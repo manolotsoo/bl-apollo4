@@ -3,33 +3,26 @@ import {
   MutationCreateUserArgs,
   MutationDeleteUserArgs,
   MutationResolvers,
+  MutationSignInArgs,
   MutationSignUpArgs,
   MutationUpdateUserArgs,
   User,
 } from "../../../__generated__/types";
 import { prisma } from "../../../db/prisma";
 import { signUp } from "../../repository/users";
-
-const users: User[] = [
-  {
-    id: "1",
-    email: "manolotsoadaniel@gmail.com",
-    password: "1234567890",
-  },
-  {
-    id: "2",
-    email: "tilt@gmail.com",
-    password: "0987654321",
-  },
-];
+import { signIn } from "../../repository/users/signIn";
 
 // Resolvers define how to fetch the types defined in your schema.
 // This resolver retrieves books from the "books" array above.
 export const userMutation: MutationResolvers = {
-  createUser: async (_: any, args: MutationCreateUserArgs, context: any) => {
+  createUser: async (_: any, args: MutationCreateUserArgs, __: any) => {
     const { input } = args;
     const user = await prisma.user.create({
-      data: { ...input, profile: undefined },
+      data: {
+        ...input,
+        id: input.id as string,
+        profile: undefined,
+      },
     });
     return user as unknown as User;
   },
@@ -59,5 +52,8 @@ export const userMutation: MutationResolvers = {
   },
   signUp: (_: any, args: MutationSignUpArgs, context: any) => {
     return signUp(args);
+  },
+  signIn: (_: any, args: MutationSignInArgs, context: any) => {
+    return signIn(args);
   },
 };

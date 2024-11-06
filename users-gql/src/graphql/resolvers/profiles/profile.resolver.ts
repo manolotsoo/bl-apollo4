@@ -9,6 +9,6 @@ export const profileResolvers: ProfileResolvers = {
     return parent?.name;
   },
   user: (parent: any) => {
-    return parent?.user as User;
+    return parent?.user;
   },
 };

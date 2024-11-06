@@ -10,8 +10,25 @@ type Query {
   profiles: [Profile]
 }
 
+input UserInput {
+  id: String
+  email: String!
+  name: String
+}
+
+input UpdateProfileInput {
+  id: String!, 
+  name: String!, 
+  user: UserInput!
+}
+
+input CreateProfileInput {
+  name: String!, 
+  user: UserInput!
+}
+
 type Mutation {
-  createProfile(name: String!, user: User!): Profile
-  updateProfile(id: String!, name: String!, user: User!): Profile
+  createProfile(input: CreateProfileInput): Profile
+  updateProfile(input: UpdateProfileInput): Profile
   deleteProfile(id: String!): Profile
 }
