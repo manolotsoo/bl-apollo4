@@ -28,7 +28,7 @@ export type Mutation = {
   createUser?: Maybe<User>;
   deleteProfile?: Maybe<Profile>;
   deleteUser?: Maybe<User>;
-  signIn?: Maybe<User>;
+  signIn?: Maybe<Scalars['String']['output']>;
   signUp?: Maybe<User>;
   updateProfile?: Maybe<Profile>;
   updateUser?: Maybe<User>;
@@ -56,7 +56,7 @@ export type MutationDeleteUserArgs = {
 
 
 export type MutationSignInArgs = {
-  input: UserInput;
+  input: SignInInput;
 };
 
 
@@ -249,7 +249,7 @@ export type MutationResolvers<ContextType = MyContext, ParentType extends Resolv
   createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   deleteProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<MutationDeleteProfileArgs, 'id'>>;
   deleteUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>;
-  signIn?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationSignInArgs, 'input'>>;
+  signIn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationSignInArgs, 'input'>>;
   signUp?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationSignUpArgs, 'input'>>;
   updateProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, Partial<MutationUpdateProfileArgs>>;
   updateUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id' | 'input'>>;
