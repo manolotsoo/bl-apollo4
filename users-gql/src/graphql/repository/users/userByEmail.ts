@@ -1,7 +1,6 @@
 import { GraphQLError } from "graphql";
 import { QueryUserByEmailArgs, User } from "../../../__generated__/types";
 import { prisma } from "../../../db/prisma";
-import { compare } from "bcrypt";
 
 export const userByEmail = async (args: QueryUserByEmailArgs) => {
   const { email } = args;
