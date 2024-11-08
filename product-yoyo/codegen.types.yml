@@ -1,10 +1,9 @@
 # This configuration file tells GraphQL Code Generator how
 # to generate types based on our schema.
-schema: "${GRAPHQL_SCHEMA_URL}"
+schema: "./src/graphql/schema.graphql"
 documents: "./**/*.{graphql,gql}"
 generates:
-  # Specify where our generated types should live.
-  ./src/types.ts:
+  ./src/graphql/graphql.types.ts:
     plugins:
       - "typescript"
       - "typescript-resolvers"

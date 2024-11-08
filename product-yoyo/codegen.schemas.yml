@@ -1,0 +1,10 @@
+# This configuration file tells GraphQL Code Generator how
+# to generate types based on our schema.
+schema: "${GRAPHQL_SCHEMA_URL}"
+generates:
+  ./src/graphql/schema.graphql:
+    plugins:
+      - schema-ast
+    config:
+      includeDirectives: true
+  # Specify where our generated types should live.

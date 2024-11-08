@@ -1,0 +1,70 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+input CreateProfileInput {
+  name: String!
+  user: UserCreateProfileInput!
+}
+
+type Mutation {
+  createProfile(input: CreateProfileInput): Profile
+  createUser(input: UserInput!): User
+  deleteProfile(id: String!): Profile
+  deleteUser(id: String!): User
+  signIn(input: SignInInput!): String
+  signUp(input: UserInput!): User
+  updateProfile(input: UpdateProfileInput): Profile
+  updateUser(id: String!, input: UserInput!): User
+}
+
+type Profile {
+  id: String
+  name: String
+  user: User!
+  userId: String!
+}
+
+input ProfileInput {
+  name: String
+}
+
+type Query {
+  profileById(id: String!): Profile
+  profiles: [Profile]
+  test: String
+  userByEmail(email: String!): User
+  userById(id: String!): User
+  users: [User]
+}
+
+input SignInInput {
+  email: String!
+  password: String!
+}
+
+input UpdateProfileInput {
+  id: String!
+  name: String!
+  user: UserCreateProfileInput!
+}
+
+type User {
+  email: String!
+  id: String
+  name: String
+  password: String!
+  profile: Profile
+}
+
+input UserCreateProfileInput {
+  id: String!
+}
+
+input UserInput {
+  email: String!
+  name: String
+  password: String!
+  profile: ProfileInput
+}
