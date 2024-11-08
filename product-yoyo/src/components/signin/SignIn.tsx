@@ -1,15 +1,28 @@
 "use client";
-import { useRouter } from "next/navigation";
+
+import { TEST_QUERY } from "@/graphql/test/test.query";
+import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
 
 export const SignIn = () => {
-  const router = useRouter();
+  const { data: dataResponse, loading } = useQuery<{ test: String }>(
+    TEST_QUERY
+  );
+  const [data, setData] = useState<{ test: String }>();
 
-  const goToSignUp = () => {
-    router.push("/signup");
-  };
+  useEffect(() => {
+    if (dataResponse) {
+      setData(dataResponse);
+    }
+  }, [dataResponse]);
+
+  if (loading) {
+    return <>loading...</>;
+  }
 
   return (
     <div className="w-full max-w-xs">
+      <h1>{data?.test}</h1>
       <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">

@@ -1,19 +1,19 @@
 "use client";
 // ^ this file needs the "use client" pragma
 
-import { HttpLink } from "@apollo/client";
+import { ApolloLink, HttpLink } from "@apollo/client";
 import {
   ApolloNextAppProvider,
   ApolloClient,
   InMemoryCache,
+  SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support";
-import { BACKEND_USERS_URI } from "../../../environment/config";
 
 // have a function to create a client for you
-function makeClientUsers() {
+export default function makeClientUsers() {
   const httpLink = new HttpLink({
     // this needs to be an absolute url, as relative urls cannot be used in SSR
-    uri: BACKEND_USERS_URI,
+    uri: process.env.NEXT_PUBLIC_BACKEND_USERS_URI,
     // you can disable result caching here if you want to
     // (this does not work if you are rendering your page with `export const dynamic = "force-static"`)
     fetchOptions: { cache: "no-store" },
@@ -27,7 +27,15 @@ function makeClientUsers() {
   return new ApolloClient({
     // use the `InMemoryCache` from "@apollo/experimental-nextjs-app-support"
     cache: new InMemoryCache(),
-    link: httpLink,
+    link:
+      typeof window === "undefined"
+        ? ApolloLink.from([
+            new SSRMultipartLink({
+              stripDefer: true,
+            }),
+            httpLink,
+          ])
+        : httpLink,
   });
 }
 
