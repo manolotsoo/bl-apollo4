@@ -2,8 +2,9 @@ import {
   QueryResolvers,
   QueryUserByEmailArgs,
   QueryUserByIdArgs,
+  QueryUserByTokenArgs,
 } from "../../../__generated__/types";
-import { userById } from "../../repository/users";
+import { userById, userByToken } from "../../repository/users";
 import { userByEmail } from "../../repository/users/userByEmail";
 import { allUsers } from "../../repository/users/allUser";
 
@@ -18,5 +19,8 @@ export const userQuery: QueryResolvers = {
   },
   userByEmail: (_: any, queryArgs: QueryUserByEmailArgs, __: any) => {
     return userByEmail(queryArgs);
+  },
+  userByToken: (_: any, queryArgs: QueryUserByTokenArgs, __: any) => {
+    return userByToken(queryArgs);
   },
 };
