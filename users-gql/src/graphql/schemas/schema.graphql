@@ -12,6 +12,7 @@ type Query {
   users: [User]
   userById(id: String!): User
   userByEmail(email: String!): User
+  userByToken(token: String!): UserTokenized
 }
 
 input UserCreateProfileInput {
@@ -38,6 +39,12 @@ type Mutation {
   deleteUser(id: String!): User
   signUp(input: UserInput!): User
   signIn(input: SignInInput!): String
+}
+
+type UserTokenized {
+  id: String!
+  name: String!
+  email: String!
 }
 
 type User {

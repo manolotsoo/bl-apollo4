@@ -2,7 +2,7 @@ import { GraphQLError } from "graphql/error/GraphQLError";
 import { MutationSignInArgs, User } from "../../../__generated__/types";
 import { userByEmail } from "./userByEmail";
 import { compare } from "bcrypt";
-import { sign, verify } from "jsonwebtoken";
+import { sign, verify, decode } from "jsonwebtoken";
 import { JWT_SECRET_KEY } from "../../../config/credentials";
 
 export const signIn = async (args: MutationSignInArgs) => {
