@@ -89,6 +89,7 @@ export type ProfileInput = {
 
 export type Query = {
   __typename?: 'Query';
+  ping?: Maybe<Scalars['String']['output']>;
   profileById?: Maybe<Profile>;
   profiles?: Maybe<Array<Maybe<Profile>>>;
   test?: Maybe<Scalars['String']['output']>;
@@ -96,6 +97,7 @@ export type Query = {
   userById?: Maybe<User>;
   userByToken?: Maybe<UserTokenized>;
   users?: Maybe<Array<Maybe<User>>>;
+  verifyToken?: Maybe<Scalars['Boolean']['output']>;
 };
 
 
@@ -115,6 +117,11 @@ export type QueryUserByIdArgs = {
 
 
 export type QueryUserByTokenArgs = {
+  token: Scalars['String']['input'];
+};
+
+
+export type QueryVerifyTokenArgs = {
   token: Scalars['String']['input'];
 };
 
@@ -280,6 +287,7 @@ export type ProfileResolvers<ContextType = MyContext, ParentType extends Resolve
 }>;
 
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  ping?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   profileById?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<QueryProfileByIdArgs, 'id'>>;
   profiles?: Resolver<Maybe<Array<Maybe<ResolversTypes['Profile']>>>, ParentType, ContextType>;
   test?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -287,6 +295,7 @@ export type QueryResolvers<ContextType = MyContext, ParentType extends Resolvers
   userById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByIdArgs, 'id'>>;
   userByToken?: Resolver<Maybe<ResolversTypes['UserTokenized']>, ParentType, ContextType, RequireFields<QueryUserByTokenArgs, 'token'>>;
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  verifyToken?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<QueryVerifyTokenArgs, 'token'>>;
 }>;
 
 export type UserResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{

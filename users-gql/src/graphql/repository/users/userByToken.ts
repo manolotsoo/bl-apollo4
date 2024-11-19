@@ -1,10 +1,25 @@
-import { decode } from "jsonwebtoken";
-import { userById } from "./userById";
-import { User, UserTokenized } from "../../../__generated__/types";
+import { JsonWebTokenError, TokenExpiredError, verify } from "jsonwebtoken";
+import { UserTokenized } from "../../../__generated__/types";
+import { JWT_SECRET_KEY } from "../../../config/credentials";
+import { GraphQLError } from "graphql";
 
 export const userByToken: (args: { token: string }) => UserTokenized = (args: {
   token: string;
 }) => {
-  const { token } = args;
-  return decode(token) as UserTokenized;
+  try {
+    const { token } = args;
+    return verify(token, JWT_SECRET_KEY) as UserTokenized;
+  } catch (error) {
+    if (error instanceof TokenExpiredError) {
+      throw new GraphQLError("Token expired", {
+        extensions: { code: "TOKEN_EXPIRED" },
+      });
+    }
+    if (error instanceof JsonWebTokenError) {
+      throw new GraphQLError("Invalid token", {
+        extensions: { code: "INVALID_TOKEN" },
+      });
+    }
+    throw new GraphQLError("Authentication error");
+  }
 };

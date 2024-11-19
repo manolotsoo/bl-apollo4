@@ -13,6 +13,8 @@ type Query {
   userById(id: String!): User
   userByEmail(email: String!): User
   userByToken(token: String!): UserTokenized
+  verifyToken(token: String!): Boolean
+  ping: String
 }
 
 input UserCreateProfileInput {

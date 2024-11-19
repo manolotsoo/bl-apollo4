@@ -2,8 +2,7 @@ import { GraphQLError } from "graphql/error/GraphQLError";
 import { MutationSignInArgs, User } from "../../../__generated__/types";
 import { userByEmail } from "./userByEmail";
 import { compare } from "bcrypt";
-import { sign, verify, decode } from "jsonwebtoken";
-import { JWT_SECRET_KEY } from "../../../config/credentials";
+import { generateToken } from "./generateToken";
 
 export const signIn = async (args: MutationSignInArgs) => {
   const { email, password } = args.input;
@@ -25,7 +24,7 @@ export const signIn = async (args: MutationSignInArgs) => {
         },
       });
     }
-    return sign(data, JWT_SECRET_KEY);
+    return generateToken(data, "AccessToken");
   } catch (error: any) {
     throw error as GraphQLError;
   }

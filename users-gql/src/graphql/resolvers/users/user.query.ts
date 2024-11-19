@@ -3,10 +3,12 @@ import {
   QueryUserByEmailArgs,
   QueryUserByIdArgs,
   QueryUserByTokenArgs,
+  QueryVerifyTokenArgs,
 } from "../../../__generated__/types";
 import { userById, userByToken } from "../../repository/users";
 import { userByEmail } from "../../repository/users/userByEmail";
 import { allUsers } from "../../repository/users/allUser";
+import { verifyToken } from "../../repository/users/verifyToken";
 
 // Resolvers define how to fetch the types defined in your schema.
 // This resolver retrieves books from the "books" array above.
@@ -22,5 +24,8 @@ export const userQuery: QueryResolvers = {
   },
   userByToken: (_: any, queryArgs: QueryUserByTokenArgs, __: any) => {
     return userByToken(queryArgs);
+  },
+  verifyToken: (_: any, queryArgs: QueryVerifyTokenArgs, __: any) => {
+    return verifyToken(queryArgs);
   },
 };
