@@ -3,6 +3,7 @@ export const tokenExpireDateTime: {
   AccessToken: String;
   RefreshToken: String;
 } = {
-  AccessToken: "5s",
+  AccessToken: "1h",
+  //   AccessToken: "5s",
   RefreshToken: "1d",
 };

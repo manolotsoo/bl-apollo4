@@ -40,7 +40,8 @@ type Mutation {
   updateUser(id: String!, input: UserInput!): User
   deleteUser(id: String!): User
   signUp(input: UserInput!): User
-  signIn(input: SignInInput!): String
+  signIn(input: SignInInput!): AuthResponse!
+  refreshToken(token: String): AuthResponse!
 }
 
 type UserTokenized {
@@ -55,6 +56,11 @@ type User {
   name: String
   password: String!
   profile: Profile
+}
+
+type AuthResponse {
+  accessToken: String!
+  refreshToken: String!
 }
 
 input UserInput {

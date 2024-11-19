@@ -1,10 +1,16 @@
 import { GraphQLError } from "graphql/error/GraphQLError";
-import { MutationSignInArgs, User } from "../../../__generated__/types";
+import {
+  AuthResponse,
+  MutationSignInArgs,
+  User,
+} from "../../../__generated__/types";
 import { userByEmail } from "./userByEmail";
 import { compare } from "bcrypt";
 import { generateToken } from "./generateToken";
 
-export const signIn = async (args: MutationSignInArgs) => {
+export const signIn: (
+  args: MutationSignInArgs
+) => Promise<AuthResponse> = async (args) => {
   const { email, password } = args.input;
   try {
     const user = (await userByEmail({
@@ -24,7 +30,10 @@ export const signIn = async (args: MutationSignInArgs) => {
         },
       });
     }
-    return generateToken(data, "AccessToken");
+    return {
+      accessToken: generateToken(data, "AccessToken"),
+      refreshToken: generateToken(data, "RefreshToken"),
+    } as AuthResponse;
   } catch (error: any) {
     throw error as GraphQLError;
   }
