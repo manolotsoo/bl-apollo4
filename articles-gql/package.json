@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && pnpm copy-gql-files",
     "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts",
+    "dev": "ts-node-dev --respawn --watch src --transpile-only src/index.ts",
     "copy-gql-files": "mkdir -p dist/graphql/schemas && cp -R src/graphql/schemas/* dist/graphql/schemas/",
     "db:push": "prisma db push --schema ./prisma/schema",
     "db:migrate:apply": "prisma migrate resolve --applied",

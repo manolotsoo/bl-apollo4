@@ -1,22 +1,26 @@
 type Product {
   id: Int
-  label: String
+  label: String!
   description: String
-  price: Int
+  price: Float!
   image: String
+  user: String!
+}
+
+type PaginatedProducts {
+  products: [Product!]!
+  total: Int!
+  currentPage: Int!
+  pageSize: Int!
+}
+
+input ProductFilterInput {
+  label: String
   user: String
 }
 
 type Query {
-  products: [Product]
-}
-
-input CreateProductArgs {
-  label: String
-  description: String
-  price: Int
-  image: String
-  user: String
+  products(filter: ProductFilterInput, page: Int = 1, pageSize: Int = 10): PaginatedProducts!
 }
 
 input UpdateProductArgs {
@@ -33,7 +37,7 @@ input DeleteProductArgs {
 }
 
 type Mutation {
-  addProduct(args: CreateProductArgs!): Product!
+  addProduct(label: String!, description: String, price: Float!, image: String, user: String!): Product!
   updateProduct(args: UpdateProductArgs!): Product!
   deleteProduct(args: DeleteProductArgs!): Product!
 }

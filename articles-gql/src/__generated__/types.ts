@@ -17,14 +17,6 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
-export type CreateProductArgs = {
-  description?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<Scalars['String']['input']>;
-  label?: InputMaybe<Scalars['String']['input']>;
-  price?: InputMaybe<Scalars['Int']['input']>;
-  user?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type DeleteProductArgs = {
   id: Scalars['Int']['input'];
 };
@@ -38,7 +30,11 @@ export type Mutation = {
 
 
 export type MutationAddProductArgs = {
-  args: CreateProductArgs;
+  description?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  label: Scalars['String']['input'];
+  price: Scalars['Float']['input'];
+  user: Scalars['String']['input'];
 };
 
 
@@ -51,19 +47,39 @@ export type MutationUpdateProductArgs = {
   args: UpdateProductArgs;
 };
 
+export type PaginatedProducts = {
+  __typename?: 'PaginatedProducts';
+  currentPage: Scalars['Int']['output'];
+  pageSize: Scalars['Int']['output'];
+  products: Array<Product>;
+  total: Scalars['Int']['output'];
+};
+
 export type Product = {
   __typename?: 'Product';
   description?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['Int']['output']>;
   image?: Maybe<Scalars['String']['output']>;
-  label?: Maybe<Scalars['String']['output']>;
-  price?: Maybe<Scalars['Int']['output']>;
-  user?: Maybe<Scalars['String']['output']>;
+  label: Scalars['String']['output'];
+  price: Scalars['Float']['output'];
+  user: Scalars['String']['output'];
+};
+
+export type ProductFilterInput = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  user?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Query = {
   __typename?: 'Query';
-  products?: Maybe<Array<Maybe<Product>>>;
+  products: PaginatedProducts;
+};
+
+
+export type QueryProductsArgs = {
+  filter?: InputMaybe<ProductFilterInput>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageSize?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type UpdateProductArgs = {
@@ -148,11 +164,13 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
-  CreateProductArgs: CreateProductArgs;
   DeleteProductArgs: DeleteProductArgs;
+  Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
+  PaginatedProducts: ResolverTypeWrapper<PaginatedProducts>;
   Product: ResolverTypeWrapper<Product>;
+  ProductFilterInput: ProductFilterInput;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   UpdateProductArgs: UpdateProductArgs;
@@ -161,38 +179,49 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean']['output'];
-  CreateProductArgs: CreateProductArgs;
   DeleteProductArgs: DeleteProductArgs;
+  Float: Scalars['Float']['output'];
   Int: Scalars['Int']['output'];
   Mutation: {};
+  PaginatedProducts: PaginatedProducts;
   Product: Product;
+  ProductFilterInput: ProductFilterInput;
   Query: {};
   String: Scalars['String']['output'];
   UpdateProductArgs: UpdateProductArgs;
 }>;
 
 export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  addProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationAddProductArgs, 'args'>>;
+  addProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationAddProductArgs, 'label' | 'price' | 'user'>>;
   deleteProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationDeleteProductArgs, 'args'>>;
   updateProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'args'>>;
+}>;
+
+export type PaginatedProductsResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['PaginatedProducts'] = ResolversParentTypes['PaginatedProducts']> = ResolversObject<{
+  currentPage?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  pageSize?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType>;
+  total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type ProductResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = ResolversObject<{
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  price?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  price?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type QueryResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType>;
+  products?: Resolver<ResolversTypes['PaginatedProducts'], ParentType, ContextType, RequireFields<QueryProductsArgs, 'page' | 'pageSize'>>;
 }>;
 
 export type Resolvers<ContextType = MyContext> = ResolversObject<{
   Mutation?: MutationResolvers<ContextType>;
+  PaginatedProducts?: PaginatedProductsResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 }>;
