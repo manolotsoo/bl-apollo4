@@ -2,10 +2,19 @@ import { QueryProductsArgs } from "../../__generated__/types";
 import { prisma } from "../../db/prisma";
 
 export const listProducts = async (args: QueryProductsArgs) => {
-  const { filter, page, pageSize } = args;
+  const { filter, page, pageSize, sort } = args;
 
   const skip = ((page || 1) - 1) * (pageSize || 10);
+  // build filter variable
   const filters: Record<string, any> = {};
+  // build orderBy variable
+  const orderBy: Record<string, any> =
+    sort?.label && sort?.direction
+      ? {
+          [sort.label]: sort.direction,
+        }
+      : {};
+
   // Add conditions to the `filters` object only when the corresponding filter exists.
   if (filter?.label) {
     filters.label = {
@@ -24,9 +33,7 @@ export const listProducts = async (args: QueryProductsArgs) => {
       where: filters,
       skip,
       take: pageSize || 10,
-      orderBy: {
-        id: "asc",
-      },
+      orderBy,
     }),
     prisma.product.count({
       where: filters,

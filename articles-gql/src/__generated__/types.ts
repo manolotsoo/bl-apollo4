@@ -21,6 +21,11 @@ export type DeleteProductArgs = {
   id: Scalars['Int']['input'];
 };
 
+export enum Direction {
+  Asc = 'asc',
+  Desc = 'desc'
+}
+
 export type Mutation = {
   __typename?: 'Mutation';
   addProduct: Product;
@@ -70,6 +75,20 @@ export type ProductFilterInput = {
   user?: InputMaybe<Scalars['String']['input']>;
 };
 
+export enum ProductLabel {
+  Description = 'description',
+  Id = 'id',
+  Image = 'image',
+  Label = 'label',
+  Price = 'price',
+  User = 'user'
+}
+
+export type ProductSortInput = {
+  direction: Direction;
+  label: ProductLabel;
+};
+
 export type Query = {
   __typename?: 'Query';
   products: PaginatedProducts;
@@ -80,6 +99,7 @@ export type QueryProductsArgs = {
   filter?: InputMaybe<ProductFilterInput>;
   page?: InputMaybe<Scalars['Int']['input']>;
   pageSize?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<ProductSortInput>;
 };
 
 export type UpdateProductArgs = {
@@ -165,12 +185,15 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   DeleteProductArgs: DeleteProductArgs;
+  Direction: Direction;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   PaginatedProducts: ResolverTypeWrapper<PaginatedProducts>;
   Product: ResolverTypeWrapper<Product>;
   ProductFilterInput: ProductFilterInput;
+  ProductLabel: ProductLabel;
+  ProductSortInput: ProductSortInput;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   UpdateProductArgs: UpdateProductArgs;
@@ -186,6 +209,7 @@ export type ResolversParentTypes = ResolversObject<{
   PaginatedProducts: PaginatedProducts;
   Product: Product;
   ProductFilterInput: ProductFilterInput;
+  ProductSortInput: ProductSortInput;
   Query: {};
   String: Scalars['String']['output'];
   UpdateProductArgs: UpdateProductArgs;

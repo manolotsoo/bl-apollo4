@@ -19,8 +19,27 @@ input ProductFilterInput {
   user: String
 }
 
+enum ProductLabel {
+  id
+  label
+  description
+  price
+  image
+  user
+}
+
+enum Direction {
+  asc
+  desc
+}
+
+input ProductSortInput {
+  label: ProductLabel!
+  direction: Direction!
+}
+
 type Query {
-  products(filter: ProductFilterInput, page: Int = 1, pageSize: Int = 10): PaginatedProducts!
+  products(filter: ProductFilterInput, page: Int = 1, pageSize: Int = 10, sort: ProductSortInput): PaginatedProducts!
 }
 
 input UpdateProductArgs {
