@@ -30,7 +30,12 @@ input UpdateProductArgs{
   user: String
 }
 
+input DeleteProductArgs{
+  id: Int!
+}
+
 type Mutation {
-  addProduct(args: CreateProductArgs!): Product
-  updateProduct(args: UpdateProductArgs!): Product
+  addProduct(args: CreateProductArgs!): Product!
+  updateProduct(args: UpdateProductArgs!): Product!
+  deleteProduct(args: DeleteProductArgs!): Product!
 }

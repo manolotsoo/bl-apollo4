@@ -10,7 +10,7 @@ export const verifyToken: (args: {
       return false;
     }
     return true;
-  } catch (error) {
+  } catch (_) {
     return false;
   }
 };

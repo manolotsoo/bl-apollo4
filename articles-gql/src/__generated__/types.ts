@@ -25,15 +25,25 @@ export type CreateProductArgs = {
   user?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type DeleteProductArgs = {
+  id: Scalars['Int']['input'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
-  addProduct?: Maybe<Product>;
-  updateProduct?: Maybe<Product>;
+  addProduct: Product;
+  deleteProduct: Product;
+  updateProduct: Product;
 };
 
 
 export type MutationAddProductArgs = {
   args: CreateProductArgs;
+};
+
+
+export type MutationDeleteProductArgs = {
+  args: DeleteProductArgs;
 };
 
 
@@ -139,6 +149,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   CreateProductArgs: CreateProductArgs;
+  DeleteProductArgs: DeleteProductArgs;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Product: ResolverTypeWrapper<Product>;
@@ -151,6 +162,7 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean']['output'];
   CreateProductArgs: CreateProductArgs;
+  DeleteProductArgs: DeleteProductArgs;
   Int: Scalars['Int']['output'];
   Mutation: {};
   Product: Product;
@@ -160,8 +172,9 @@ export type ResolversParentTypes = ResolversObject<{
 }>;
 
 export type MutationResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  addProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationAddProductArgs, 'args'>>;
-  updateProduct?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'args'>>;
+  addProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationAddProductArgs, 'args'>>;
+  deleteProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationDeleteProductArgs, 'args'>>;
+  updateProduct?: Resolver<ResolversTypes['Product'], ParentType, ContextType, RequireFields<MutationUpdateProductArgs, 'args'>>;
 }>;
 
 export type ProductResolvers<ContextType = MyContext, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = ResolversObject<{
