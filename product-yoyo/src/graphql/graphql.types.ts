@@ -16,6 +16,12 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type AuthResponse = {
+  __typename?: 'AuthResponse';
+  accessToken: Scalars['String']['output'];
+  refreshToken: Scalars['String']['output'];
+};
+
 export type CreateProfileInput = {
   name: Scalars['String']['input'];
   user: UserCreateProfileInput;
@@ -27,7 +33,8 @@ export type Mutation = {
   createUser?: Maybe<User>;
   deleteProfile?: Maybe<Profile>;
   deleteUser?: Maybe<User>;
-  signIn?: Maybe<Scalars['String']['output']>;
+  refreshToken: AuthResponse;
+  signIn: AuthResponse;
   signUp?: Maybe<User>;
   updateProfile?: Maybe<Profile>;
   updateUser?: Maybe<User>;
@@ -51,6 +58,11 @@ export type MutationDeleteProfileArgs = {
 
 export type MutationDeleteUserArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type MutationRefreshTokenArgs = {
+  token?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -88,12 +100,15 @@ export type ProfileInput = {
 
 export type Query = {
   __typename?: 'Query';
+  ping?: Maybe<Scalars['String']['output']>;
   profileById?: Maybe<Profile>;
   profiles?: Maybe<Array<Maybe<Profile>>>;
   test?: Maybe<Scalars['String']['output']>;
   userByEmail?: Maybe<User>;
   userById?: Maybe<User>;
+  userByToken?: Maybe<UserTokenized>;
   users?: Maybe<Array<Maybe<User>>>;
+  verifyToken?: Maybe<Scalars['Boolean']['output']>;
 };
 
 
@@ -109,6 +124,16 @@ export type QueryUserByEmailArgs = {
 
 export type QueryUserByIdArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryUserByTokenArgs = {
+  token: Scalars['String']['input'];
+};
+
+
+export type QueryVerifyTokenArgs = {
+  token: Scalars['String']['input'];
 };
 
 export type SignInInput = {
@@ -140,6 +165,13 @@ export type UserInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   password: Scalars['String']['input'];
   profile?: InputMaybe<ProfileInput>;
+};
+
+export type UserTokenized = {
+  __typename?: 'UserTokenized';
+  email: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -214,6 +246,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
+  AuthResponse: ResolverTypeWrapper<AuthResponse>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   CreateProfileInput: CreateProfileInput;
   Mutation: ResolverTypeWrapper<{}>;
@@ -226,10 +259,12 @@ export type ResolversTypes = ResolversObject<{
   User: ResolverTypeWrapper<User>;
   UserCreateProfileInput: UserCreateProfileInput;
   UserInput: UserInput;
+  UserTokenized: ResolverTypeWrapper<UserTokenized>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
+  AuthResponse: AuthResponse;
   Boolean: Scalars['Boolean']['output'];
   CreateProfileInput: CreateProfileInput;
   Mutation: {};
@@ -242,6 +277,13 @@ export type ResolversParentTypes = ResolversObject<{
   User: User;
   UserCreateProfileInput: UserCreateProfileInput;
   UserInput: UserInput;
+  UserTokenized: UserTokenized;
+}>;
+
+export type AuthResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['AuthResponse'] = ResolversParentTypes['AuthResponse']> = ResolversObject<{
+  accessToken?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  refreshToken?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
@@ -249,7 +291,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   deleteProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<MutationDeleteProfileArgs, 'id'>>;
   deleteUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>;
-  signIn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MutationSignInArgs, 'input'>>;
+  refreshToken?: Resolver<ResolversTypes['AuthResponse'], ParentType, ContextType, Partial<MutationRefreshTokenArgs>>;
+  signIn?: Resolver<ResolversTypes['AuthResponse'], ParentType, ContextType, RequireFields<MutationSignInArgs, 'input'>>;
   signUp?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationSignUpArgs, 'input'>>;
   updateProfile?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, Partial<MutationUpdateProfileArgs>>;
   updateUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'id' | 'input'>>;
@@ -264,12 +307,15 @@ export type ProfileResolvers<ContextType = any, ParentType extends ResolversPare
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  ping?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   profileById?: Resolver<Maybe<ResolversTypes['Profile']>, ParentType, ContextType, RequireFields<QueryProfileByIdArgs, 'id'>>;
   profiles?: Resolver<Maybe<Array<Maybe<ResolversTypes['Profile']>>>, ParentType, ContextType>;
   test?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   userByEmail?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByEmailArgs, 'email'>>;
   userById?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserByIdArgs, 'id'>>;
+  userByToken?: Resolver<Maybe<ResolversTypes['UserTokenized']>, ParentType, ContextType, RequireFields<QueryUserByTokenArgs, 'token'>>;
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+  verifyToken?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<QueryVerifyTokenArgs, 'token'>>;
 }>;
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
@@ -281,10 +327,19 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type UserTokenizedResolvers<ContextType = any, ParentType extends ResolversParentTypes['UserTokenized'] = ResolversParentTypes['UserTokenized']> = ResolversObject<{
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type Resolvers<ContextType = any> = ResolversObject<{
+  AuthResponse?: AuthResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Profile?: ProfileResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  UserTokenized?: UserTokenizedResolvers<ContextType>;
 }>;
 

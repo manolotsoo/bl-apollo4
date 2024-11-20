@@ -3,6 +3,11 @@ schema {
   mutation: Mutation
 }
 
+type AuthResponse {
+  accessToken: String!
+  refreshToken: String!
+}
+
 input CreateProfileInput {
   name: String!
   user: UserCreateProfileInput!
@@ -13,7 +18,8 @@ type Mutation {
   createUser(input: UserInput!): User
   deleteProfile(id: String!): Profile
   deleteUser(id: String!): User
-  signIn(input: SignInInput!): String
+  refreshToken(token: String): AuthResponse!
+  signIn(input: SignInInput!): AuthResponse!
   signUp(input: UserInput!): User
   updateProfile(input: UpdateProfileInput): Profile
   updateUser(id: String!, input: UserInput!): User
@@ -31,12 +37,15 @@ input ProfileInput {
 }
 
 type Query {
+  ping: String
   profileById(id: String!): Profile
   profiles: [Profile]
   test: String
   userByEmail(email: String!): User
   userById(id: String!): User
+  userByToken(token: String!): UserTokenized
   users: [User]
+  verifyToken(token: String!): Boolean
 }
 
 input SignInInput {
@@ -67,4 +76,10 @@ input UserInput {
   name: String
   password: String!
   profile: ProfileInput
+}
+
+type UserTokenized {
+  email: String!
+  id: String!
+  name: String!
 }
