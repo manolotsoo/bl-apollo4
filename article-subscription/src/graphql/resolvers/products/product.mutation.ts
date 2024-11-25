@@ -1,5 +1,4 @@
 import { PubSub } from "graphql-subscriptions";
-import { MyContext } from "../../..";
 import {
   MutationCreatePostArgs,
   MutationResolvers,
@@ -8,7 +7,7 @@ import {
 const pubsub = new PubSub();
 
 export const productMutation: MutationResolvers = {
-  createPost: (_: any, args: MutationCreatePostArgs, __: MyContext) => {
+  createPost: (_: any, args: MutationCreatePostArgs, __: any) => {
     pubsub.publish("POST_CREATED", {
       postCreated: JSON.stringify({
         author: "Ali Baba",

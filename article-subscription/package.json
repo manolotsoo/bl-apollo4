@@ -2,10 +2,10 @@
   "name": "article-subscription",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn --watch src --transpile-only src/index.ts",
+    "dev": "ts-node-dev --respawn --watch src --transpile-only src/server.ts",
     "generate:schemas:gql": "ts-node src/graphql/mergeSchemas.ts",
     "generate:types": "graphql-codegen --config codegen.yml"
   },
@@ -14,15 +14,17 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.11.2",
-    "@graphql-tools/load": "^8.0.3",
+    "@graphql-tools/load": "^8.0.5",
     "@graphql-tools/load-files": "^7.0.0",
-    "@graphql-tools/merge": "^9.0.8",
-    "@graphql-tools/schema": "^10.0.8",
+    "@graphql-tools/merge": "^9.0.10",
+    "@graphql-tools/schema": "^10.0.9",
     "@prisma/client": "5.22.0",
+    "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "graphql": "^16.9.0",
     "graphql-subscriptions": "^3.0.0",
+    "graphql-tag": "^2.12.6",
     "graphql-ws": "^5.16.0",
     "ts-node": "^10.9.2",
     "ws": "^8.18.0"
@@ -32,12 +34,13 @@
     "@graphql-codegen/introspection": "4.0.3",
     "@graphql-codegen/typescript": "4.1.1",
     "@graphql-codegen/typescript-resolvers": "4.4.0",
+    "@types/body-parser": "^1.19.5",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
-    "@types/node": "^22.8.2",
+    "@types/node": "^22.9.3",
     "@types/ws": "^8.5.13",
-    "prisma": "^5.21.1",
+    "prisma": "^5.22.0",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   }
 }
